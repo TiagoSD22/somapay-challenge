@@ -1,6 +1,7 @@
 package com.somapay.challenge.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="company")
@@ -14,6 +15,9 @@ public class Company {
 
     @Column(name = "account_balance", nullable = false, columnDefinition = "float default 0")
     private float accountBalance;
+
+    @OneToMany(mappedBy="associatedEmployee", cascade = CascadeType.ALL)
+    private Set<Employee> employeeList;
 
     public int getId() {
         return id;
@@ -33,5 +37,13 @@ public class Company {
 
     public void setAccountBalance(float accountBalance) {
         this.accountBalance = accountBalance;
+    }
+
+    public Set<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(Set<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 }
