@@ -32,9 +32,4 @@ public class CompanyController {
 
         return new ResponseEntity<Float>(company.get().getAccountBalance(), HttpStatus.OK);
     }
-
-    @GetMapping("/teste/{id}")
-    public ResponseEntity<String> test(@PathVariable Integer id){
-        return new ResponseEntity<String>(String.format("Ola %d", id), HttpStatus.OK);
-    }
 }
