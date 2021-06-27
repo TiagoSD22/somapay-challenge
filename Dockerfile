@@ -5,4 +5,5 @@ COPY src /tmp/src/
 WORKDIR /tmp/
 RUN mvn clean package -DskipTests
 RUN cp target/challenge-0.0.1-SNAPSHOT.jar application.jar
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "application.jar"]
