@@ -1,13 +1,16 @@
 package com.somapay.challenge.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name="company")
 public class Company {
+    @Column(name = "id", nullable = false)
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "name", nullable = false)
@@ -16,7 +19,7 @@ public class Company {
     @Column(name = "account_balance", nullable = false, columnDefinition = "float default 0")
     private float accountBalance;
 
-    @OneToMany(mappedBy="associatedEmployee", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="company", fetch = FetchType.LAZY)
     private Set<Employee> employeeList;
 
     public int getId() {
@@ -39,10 +42,12 @@ public class Company {
         this.accountBalance = accountBalance;
     }
 
+    @JsonIgnore
     public Set<Employee> getEmployeeList() {
         return employeeList;
     }
 
+    @JsonIgnore
     public void setEmployeeList(Set<Employee> employeeList) {
         this.employeeList = employeeList;
     }

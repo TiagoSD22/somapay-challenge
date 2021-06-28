@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,5 +32,17 @@ public class CompanyController {
         }
 
         return new ResponseEntity<Float>(company.get().getAccountBalance(), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-by-id/{id}")
+    public ResponseEntity<Optional<Company>> getById(@PathVariable Integer id){
+        Optional<Company> company = this.repository.findById(id);
+        return new ResponseEntity<Optional<Company>>(company, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all")
+    public ResponseEntity<List<Company>> getAll(){
+        List<Company> companyList = this.repository.findAll();
+        return new ResponseEntity<List<Company>>(companyList, HttpStatus.OK);
     }
 }
